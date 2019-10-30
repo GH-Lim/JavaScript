@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      .bg {
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg">
+      <img
+        id="dino"
+        width="100px"
+        height="100px"
+        src="https://emoji.slack-edge.com/TL6QMKMKP/jisoo/74b7e158b39d7bbe.jpg"
+        alt="dino"
+      />
+    </div>
+
+    <script>
+      const bg = document.querySelector('div.bg')
+      const dino = bg.querySelector('#dino')
+      dino.style.position = 'fixed'
+      dino.style.top = window.innerHeight / 2 + 'px'
+      dino.style.left = window.innerWidth / 2 + 'px'
+      // 대상 요소 삭제
+      // dino.remove()
+      // 대상의 자식 요소 삭제
+      // bg.firstElementChild.remove()
+      // bg.lastElementChild.remove()
+      // bg.removeChild(dino)
+      //
+
+      // practice : body 에 자식 element 가 하나도 없을 때 까지 자식 element 를 삭제하는 코드를 작성
+      
+      // while (document.body.firstElementChild !== null) {
+      //   console.log(document.body.firstElementChild)
+      //   document.body.firstElementChild.remove()
+      // }
+      // console.log(document.body.firstElementChild)
+
+      // 새로운 요소 추가
+      // 요소 생성
+      // dino.remove()
+      // const newDino = document.createElement('img')
+      // newDino.id = 'newDino'
+      // newDino.src = 'https://store-images.s-microsoft.com/image/apps.38351.14426311725358695.736eb785-1d29-478c-a909-1900849773e9.4247f5ee-1daa-4c97-96c2-23868f1fbc45?mode=scale&q=90&h=200&w=200&background=%230078D7'
+      // newDino.alt = 'dino'
+      
+      // 요소 추가
+      // bg.appendChild(newDino) // 가장 마지막에 추가
+      // bg.insertBefore(newDino, bg.firstElementChild)
+
+      // 이벤트 리스너
+      let mgT = window.innerHeight / 2
+      let mgL = window.innerWidth / 2
+      dino.addEventListener('click', event => {
+        // alert('아야!')
+        console.log('아야!')
+      })
+
+      document.addEventListener('mouseover', event => {
+        mgT = Math.random() * window.innerHeight
+        mgL = Math.random() * window.innerWidth
+        dino.style.top = `${mgT}px`
+        dino.style.left = `${mgL}px`
+      })
+
+      document.addEventListener('keydown', event => {
+        // 방향키를 눌렀을 때만 event 를 출력할 수 있도록 조건문을 작성
+        // if (event.keyCode >= 37 && event.keyCode <= 40) {
+        //   console.log(event.key)
+        // }
+        if (event.key === 'ArrowUp') {
+          console.log('위')
+          mgT -= 20
+          dino.style.top = mgT + 'px'
+        }
+        else if (event.key === 'ArrowDown') {
+          console.log('아래')
+          mgT += 20
+          dino.style.top = mgT + 'px'
+        }
+        else if (event.key === 'ArrowLeft') {
+          console.log('왼쪽')
+          mgL -= 20
+          dino.style.left = mgL + 'px'
+        }
+        else if (event.key === 'ArrowRight') {
+          console.log('오른쪽')
+          mgL += 20
+          dino.style.left = mgL + 'px'
+        }
+        else {
+          console.log(event.key)
+        }
+        // console.log(event)
+      })
+
+    </script>
+  </body>
+</html>
