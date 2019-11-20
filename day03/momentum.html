@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Momentum</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0%;
+    }
+    p {
+      color: aliceblue;
+      margin: 0;
+    }
+    #center {
+      text-align: center;
+      color: aliceblue;
+      font-size: 3em;
+    }
+    #timeNow {
+      font-size: 150px;
+      font: 800;
+    }
+    /* body {
+      background-image: url('bg.jpg');
+    } */
+  </style>
+</head>
+<body>
+
+  <div id="center">
+    <p id="timeNow"></p>
+    <p id="words">Belive in yourself, GH Lim.</p>
+  </div>
+  <div id="weatherInfo">
+    <img id="icon">
+    <p id="tempBox"></p>
+    <p id="weatherBox"></p>
+  </div>
+  <script>
+    const body = document.querySelector('body')
+    const timeNow = document.querySelector('#timeNow')
+    const center = document.querySelector('#center')
+    center.style.position = 'absolute'
+    center.style.top = '35%'
+    center.style.left = '35%'
+    const clock = () => {
+      const date = new Date()
+      const h = date.getHours()
+      const hh = h > 9 ? h : `0${h}`
+      const m = date.getMinutes()
+      const mm = m > 9 ? m : `0${m}`
+      const s = date.getSeconds()
+      const ss = s > 9 ? s : `0${s}`
+      timeNow.innerText = `${hh}:${mm}:${ss}`
+    }
+    axios.get('https://source.unsplash.com/1920x1080/?cat')
+      .then(response => {
+        // console.log(response)
+        const bgURL = response.request.responseURL
+        body.style.backgroundImage = `url('${bgURL}')`
+      })
+    const initTime = () => {
+      clock()
+      setInterval(clock, 1000)
+    }
+    initTime()
+
+    const tempBox = document.querySelector('#tempBox')
+    const weatherBox = document.querySelector('weatherBox')
+    const icon = document.querySelector('#icon')
+    axios.get('http://api.openweathermap.org/data/2.5/weather?q=Seoul,KR&APPID=cb5b4ab8957d35f370cc1bdd030b1cca')
+      .then(response => {
+        console.log(response)
+        const temp = (response.data.main.temp - 273).toPrecision(3)
+        const weather = response.weather[0].main
+        const weatherIcon = response.weather[0].icon
+        const IconURL = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+        // console.log((response.data.main.temp - 273).toPrecision(3))
+      })
+  </script>
+</body>
+</html>
